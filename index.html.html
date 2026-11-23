@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rede MultiDrogas — Gestão Elegante de Validade</title>
+
+    <!-- Fontes Elegantes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #141757;
+            --navy-deep: #0b0d38;
+            --gold: #eab308;
+            --gold-soft: #fef9c3;
+            --crimson: #c81e1e;
+            --crimson-soft: #fef2f2;
+            --amber: #d97706;
+            --amber-soft: #fffbeb;
+            --emerald: #0f766e;
+            --emerald-soft: #f0fdfa;
+
+            --bg-canvas: #f4f5f8;
+            --surface: #ffffff;
+            --surface-subtle: #f9fafb;
+            --ink: #111827;
+            --muted: #6b7280;
+            --line: #e5e7eb;
+
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --shadow-soft: 0 10px 30px -10px rgba(20, 23, 87, 0.08);
+            --shadow-float: 0 18px 36px -12px rgba(20, 23, 87, 0.18);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top, #1f2475 0%, #0d0f36 100%);
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .mobile-frame {
+            width: 100%;
+            max-width: 440px;
+            min-height: 100vh;
+            background: var(--bg-canvas);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+            overflow-x: hidden;
+        }
+
+        /* ================= LOGIN CHIQUE ================= */
+        .login-view {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 28px 22px 24px;
+            background:
+                radial-gradient(circle at 85% 12%, rgba(234, 179, 8, 0.22), transparent 45%),
+                linear-gradient(180deg, #fafaf7 0%, #f1f2f6 100%);
+        }
+
+        .brand-showcase {
+            text-align: center;
+            margin-top: 6px;
+        }
+
+        .brand-card-art {
+            width: 100%;
+            max-height: 190px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1.5px solid rgba(20, 23, 87, 0.12);
+            box-shadow: var(--shadow-soft);
+            background: #ffd900;
+            margin-bottom: 14px;
+        }
+
+        .brand-card-art img {
+            width: 100%;
+            height: 190px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .editorial-kicker {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--crimson);
+            margin-bottom: 4px;
+        }
+
+        .editorial-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 700;
+            font-size: 32px;
+            color: var(--navy);
+            line-height: 1.05;
+        }
+
+        .login-panel {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: 24px 20px;
+            box-shadow: var(--shadow-float);
+            border: 1px solid rgba(20, 23, 87, 0.06);
+            margin-top: 18px;
+        }
+
+        .field {
+            margin-bottom: 14px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            padding: 13px 15px;
+            border-radius: var(--radius-md);
+            border: 1.5px solid var(--line);
+            background: var(--surface-subtle);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--ink);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            background: var(--surface);
+            border-color: var(--navy);
+            box-shadow: 0 0 0 4px rgba(20, 23, 87, 0.08);
+        }
+
+        .btn-lux {
+            width: 100%;
+            padding: 15px 18px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-lux:active {
+            transform: scale(0.985);
+        }
+
+        .btn-navy {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+            color: #ffffff;
+            box-shadow: 0 10px 22px -6px rgba(20, 23, 87, 0.45);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+            color: var(--navy);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--muted);
+            border: 1.5px solid var(--line);
+        }
+
+        .login-hint {
+            margin-top: 14px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .login-hint strong {
+            color: var(--navy);
+        }
+
+        .login-footer-note {
+            text-align: center;
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 16px;
+        }
+
+        /* ================= ÁREA PRINCIPAL ================= */
+        .app-view {
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .app-view.active {
+            display: flex;
+        }
+
+        .top-bar {
+            background: var(--surface);
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .top-brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .top-logo-thumb {
+            width: 46px;
+            height: 46px;
+            border-radius: 13px;
+            overflow: hidden;
+            background: #ffd900;
+            border: 1.5px solid rgba(20, 23, 87, 0.15);
+            flex-shrink: 0;
+        }
+
+        .top-logo-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .top-titles h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 700;
+            font-size: 22px;
+            color: var(--navy);
+            line-height: 1;
+        }
+
+        .top-titles span {
+            font-size: 12px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .round-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            background: var(--surface-subtle);
+            color: var(--navy);
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .round-btn:hover {
+            background: var(--gold-soft);
+        }
+
+        .content-scroll {
+            padding: 18px 18px 98px;
+            flex: 1;
+        }
+
+        /* Métricas Elegantes */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .metric-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 14px 10px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(20, 23, 87, 0.05);
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .metric-card:active {
+            transform: scale(0.97);
+        }
+
+        .metric-number {
+            font-size: 24px;
+            font-weight: 800;
+            display: block;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+
+        .metric-card.red .metric-number { color: var(--crimson); }
+        .metric-card.amber .metric-number { color: var(--amber); }
+        .metric-card.navy .metric-number { color: var(--navy); }
+
+        .metric-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* Busca e Filtros */
+        .search-wrap {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            padding: 13px 16px 13px 40px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: var(--surface);
+            font-size: 14px;
+            box-shadow: var(--shadow-soft);
+            outline: none;
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--navy);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            margin-bottom: 14px;
+            scrollbar-width: none;
+        }
+
+        .filter-row::-webkit-scrollbar { display: none; }
+
+        .chip {
+            padding: 8px 15px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: var(--surface);
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .chip.active {
+            background: var(--navy);
+            color: #ffffff;
+            border-color: var(--navy);
+        }
+
+        /* Cartões de Produtos */
+        .item-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(20, 23, 87, 0.05);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .item-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .item-meta {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .status-tag {
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 10px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        .tag-expired {
+            background: var(--crimson-soft);
+            color: var(--crimson);
+        }
+
+        .tag-soon {
+            background: var(--amber-soft);
+            color: var(--amber);
+        }
+
+        .tag-ok {
+            background: var(--emerald-soft);
+            color: var(--emerald);
+        }
+
+        .item-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10px;
+            border-top: 1px dashed var(--line);
+            font-size: 13px;
+        }
+
+        .qty-stepper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            background: var(--surface-subtle);
+            font-weight: 800;
+            font-size: 15px;
+            color: var(--navy);
+            cursor: pointer;
+        }
+
+        .step-val {
+            font-weight: 700;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        /* Barra Inferior Flutuante */
+        .dock-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 440px;
+            padding: 12px 18px 16px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--line);
+            z-index: 25;
+        }
+
+        /* Modal */
+        .sheet-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(11, 13, 56, 0.55);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 40;
+        }
+
+        .sheet-backdrop.open {
+            display: flex;
+        }
+
+        .sheet-card {
+            width: 100%;
+            max-width: 440px;
+            background: var(--surface);
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            padding: 24px 20px 28px;
+            box-shadow: var(--shadow-float);
+            animation: riseUp 0.24s ease-out;
+        }
+
+        @keyframes riseUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .sheet-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .sheet-head h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 26px;
+            color: var(--navy);
+        }
+
+        .two-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .empty-box {
+            text-align: center;
+            padding: 44px 20px;
+            color: var(--muted);
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+        }
+    </style>
+</head>
+<body>
+
+<div class="mobile-frame">
+
+    <!-- ================= TELA DE LOGIN ================= -->
+    <section id="login-view" class="login-view">
+        <div class="brand-showcase">
+            <div class="brand-card-art">
+                <img id="login-logo-img" alt="Rede MultiDrogas">
+            </div>
+            <div class="editorial-kicker">Controle de Validade • Excelência Farmacêutica</div>
+            <div class="editorial-title">Rede MultiDrogas</div>
+        </div>
+
+        <form class="login-panel" id="login-form">
+            <div class="field">
+                <label for="login-username">Usuário</label>
+                <input type="text" id="login-username" placeholder="Digite seu usuário" required>
+            </div>
+
+            <div class="field">
+                <label for="login-password">Senha</label>
+                <input type="password" id="login-password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn-lux btn-navy">Entrar no Painel</button>
+
+            <p class="login-hint">
+                Acesso padrão: usuário <strong>multidrogas</strong> • senha <strong>1234</strong>
+            </p>
+        </form>
+
+        <p class="login-footer-note">Com você, pela saúde da nossa gente</p>
+    </section>
+
+    <!-- ================= APLICATIVO ================= -->
+    <section id="app-view" class="app-view">
+        <header class="top-bar">
+            <div class="top-brand">
+                <div class="top-logo-thumb">
+                    <img id="header-logo-img" alt="Logo">
+                </div>
+                <div class="top-titles">
+                    <h1>Rede MultiDrogas</h1>
+                    <span id="user-badge">Operador ativo</span>
+                </div>
+            </div>
+
+            <div class="top-actions">
+                <button class="round-btn" onclick="openLogoModal()" title="Trocar Logo">🖼️</button>
+                <button class="round-btn" onclick="logout()" title="Sair">⎋</button>
+            </div>
+        </header>
+
+        <main class="content-scroll">
+            <div class="metrics-grid">
+                <div class="metric-card red" onclick="setFilter('expired')">
+                    <span class="metric-number" id="m-expired">0</span>
+                    <span class="metric-label">Vencidos</span>
+                </div>
+                <div class="metric-card amber" onclick="setFilter('soon')">
+                    <span class="metric-number" id="m-soon">0</span>
+                    <span class="metric-label">Até 30 dias</span>
+                </div>
+                <div class="metric-card navy" onclick="setFilter('all')">
+                    <span class="metric-number" id="m-total">0</span>
+                    <span class="metric-label">Itens</span>
+                </div>
+            </div>
+
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-field" placeholder="Buscar medicamento ou lote..." oninput="renderItems()">
+            </div>
+
+            <div class="filter-row">
+                <button class="chip active" data-filter="all" onclick="setFilter('all')">Todos</button>
+                <button class="chip" data-filter="expired" onclick="setFilter('expired')">Vencidos</button>
+                <button class="
